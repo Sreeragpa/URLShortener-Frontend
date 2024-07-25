@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* styles.css or styles.scss */
+
+.dark{
+    --text-color: 217, 217, 217;
+    --bg-color: 0, 22, 30;
+    --accent-blue: 0, 50, 86;
+    --accent-light-blue: 166, 227, 244;
+}

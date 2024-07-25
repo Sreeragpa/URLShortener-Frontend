@@ -1,0 +1,53 @@
+<div class="flex justify-center m-auto flex-col items-center gap-2 ">
+    <p class="text-white text-2xl">URL Shortener</p>
+    <!-- URL BAR -->
+<div class="bg-accent_blue rounded-2xl py-2 px-2 md:min-w-[40%] min-w-[80%] flex justify-between">
+        <input class="bg-transparent w-full outline-none px-3 py-1" type="text" placeholder="www.srg.buzz/home?reload=true" [(ngModel)]="inputValue">
+        <!-- w-3/4 -->
+         @if (isGenerated) {
+            <div class="flex gap-1">
+                <button class="bg-accent_light_blue text-bg_color rounded-xl px-3 py-1 flex items-center gap-1 active:opacity-85 transition-all">
+                    Copy
+                    <svg width="15" height="15" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_3_46)">
+                        <path d="M7.89286 0H12.602C13.0839 0 13.5469 0.199219 13.8884 0.550781L16.465 3.20312C16.8065 3.55469 17 4.03125 17 4.52734V13.125C17 14.1602 16.1842 15 15.1786 15H7.89286C6.88728 15 6.07143 14.1602 6.07143 13.125V1.875C6.07143 0.839844 6.88728 0 7.89286 0ZM1.82143 5H4.85714V7.5H2.42857V17.5H9.71429V16.25H12.1429V18.125C12.1429 19.1602 11.327 20 10.3214 20H1.82143C0.815848 20 0 19.1602 0 18.125V6.875C0 5.83984 0.815848 5 1.82143 5Z" fill="#00161E"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_3_46">
+                        <rect width="17" height="20" fill="white"/>
+                        </clipPath>
+                        </defs>
+                    </svg>
+                        
+                </button>
+                <button class="bg-accent_light_blue text-bg_color rounded-xl px-3 py-1 flex items-center gap-1 active:opacity-85 transition-all" (click)="reset()">
+                    <svg width="15" height="15" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.2002 7.31251H16.5156C17.0092 7.31251 17.4063 6.91544 17.4063 6.42188V1.67188C17.4063 1.31192 17.191 0.985358 16.857 0.848053C16.5231 0.710749 16.1408 0.784967 15.8848 1.04102L14.341 2.58477C11.0902 -0.625189 5.85411 -0.614056 2.62189 2.62188C-0.625183 5.86895 -0.625183 11.1311 2.62189 14.3781C5.86896 17.6252 11.1311 17.6252 14.3781 14.3781C14.842 13.9143 14.842 13.1609 14.3781 12.6971C13.9143 12.2332 13.161 12.2332 12.6971 12.6971C10.3777 15.0164 6.61857 15.0164 4.29923 12.6971C1.9799 10.3777 1.9799 6.61856 4.29923 4.29923C6.60743 1.99102 10.3369 1.97989 12.66 4.26212L11.1348 5.79102C10.8787 6.04708 10.8045 6.4293 10.9418 6.76329C11.0791 7.09727 11.4057 7.31251 11.7656 7.31251H16.2002Z" fill="#00161E"/>
+                    </svg>
+                </button>
+            </div>
+       
+         }@else {
+            <button class="bg-accent_light_blue text-bg_color rounded-xl px-3 py-1 flex items-center gap-1 active:opacity-85 transition-all" [disabled]="isloading" (click)="generateLink()">
+                @if (isloading) {
+                    Generating
+                }@else {
+                    Generate
+                }
+                <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <rect width="27" height="27" fill="url(#pattern0_2_24)"/>
+                    <defs>
+                    <pattern id="pattern0_2_24" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_2_24" transform="scale(0.01)"/>
+                    </pattern>
+                    <image id="image0_2_24" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAABTZJREFUeAHtnFuP1kQYx5/s3nni4DvTzdJ5ugIJibd+EBMVYzSg3inqtfcSjInAVyAhQjx8CJUE8QAET5FPQDxARG93F8y/pbIbmj7TTt/d7fY/SdOl78x05vefZ45PEWEgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARIgARKYM4HskBenR8UVp8TnX4jXr8Xr1eQr04+SS448BilL8VVZN9TR6UuytOSSyzZoBnt0nzh9T5x+L17vidf7g1+Zfp5cZuQxj7KhzrPiW3HFO7J3ZW9yOXtnACGqVvfvnCr6UNidLcjDcvrwj2T64dYL4/WYuPyPuQtRt+jRCPKgd3Dhd/HFa70be3TC2ZEnxYcLWybEWAWpy+3z8+LcE9F8O0XEgO3DtS0XA5Ubm4X8L0hpMVcF7AYNpRh6c1vEGL8gGGNuDjcbq7qp7bGMuqWN20KqQT/THyTLHk83lH5jxqr4/LJ4/UR8cbacjWFG1vcaYoBEHn3fX6dDXVAnp9+I19XuPUZ+Pk0QzKbqVhp1DzfE63HJ8/1pLx5B6gMHni7r6oofOzHKilf71a5c8EVObZ3+JRBPZKHfy0adakGcvi5Ob0cJgylxrwUkzDTGKpz+LFnxzKiRDlF4Hw7JTH+JY1ac6vZKWAdWnZYgEGP/4ae6Zb6LY+87uCdOlHC3m5Vgb8oW47agVTBsJrC0siKu+NPk58OJzQnb/lVtFG7Yo2ncMMSYwdBEAGOK2aDDlaakjz6rFoHtu7aYWUxzAH+UV/OTBfH5dUOUe7K8PGtOvvGp05eNjGA5xzcm6fz3kj4rM31uR18oY0pw4Q2TI85TzFAeLjV2UXUXtiqYg6eE2NmIZfbz/B1lTAnVOsVYPIYP7FdUJ301/IZ7ftnOxIgxBUGAwIUrrVaS6WcGKRHxeqk1E2wdpIapCOKLi60sXfjSRmkORuFjOxMjxmQECadbBcFxhhlsQU6beVgRJiNIcWYAQawuK1yweJu/T0UQp5+2ChLZZcF9p2Ewr59xUDcbXB1hkEHdnvauxS1o6lI13KdgIYNNe+Ho1moher/cbm7gHP1oGgvDN02OvnjRZgZPPMvhzelPIrJoZzbZGIuCnfD2hr0e39PAE689s3Qr2c1auRBhHV3GYle8awri9Y64/PBu5tqrbjisq05QWyZGmCCFt+LzxxFjzAEVBmccyjBUBMDCh1/txhz+7s4NPqpWt4XfIUqmByevCQ7rosTApCic7M4LVlL6qNbrj5Y7DvhxKDPNM5JFqcaMO1EN2Idb/Y+94csUYyV1HMy+cA6Quj3fvflsfQocLqGu9mxq81iShVfSCguH4Rp4/H2t2nrGbmdxVpy+n3Rl4fm0SogI8kgtR+koV1wsvwfxutaDy7nkepTe23CDjBdjc4sYIt1ucCX1+p0sLz+WLghyqBaLdLbu27iy/LfhnK1rSeEeWvm0Dm8BVkXHbCHw4Bn8c4RaFHhv9xtT0kQcryDnhuumahGa7nAYjp0SW60/5vfRCRJuSfJsqgl827NynYLPnyNcTmOgt8UZjSDhbrno29bdi2q74MQDD4v1uczGdrYg69W3MOHt7tshbS1+iN+wWMIeP7YG4OKCI8pBPtbfQf9xAOpU1e2k+OKFSSyCh2gbzIMESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAESIAEUgj8B3c6g6amCWwJAAAAAElFTkSuQmCC"/>
+                    </defs>
+                </svg>
+            </button>
+         }
+
+    </div>
+    <!-- /URL BAR -->
+
+    <p class="text-sm">Shorten URLs For Easy Sharing</p>
+</div>
