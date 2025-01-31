@@ -1,28 +1,36 @@
-name: Deploy Angular App to EC2
+name: Build and Deploy Angular App
 
 on:
   push:
     branches:
-      - master 
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Set API_URL Environment Variable
         run: |
           echo "API_URL=${{ secrets.apiURL }}" >> $GITHUB_ENV
-          
-      - name: Install Dependencies & Build Angular
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Build Angular project
         run: |
           npm install
-          npm run build 
+          npm run build --prod
 
-      - name: Deploy to EC2
-        run: |
-          scp -r dist/ ubuntu@${{ secrets.EC2_HOST }}:/var/www/html/
-          ssh ubuntu@${{ secrets.EC2_HOST }} "sudo systemctl restart nginx"
+      - name: Copy files to EC2
+        run: scp -r dist/ ubuntu@${{ secrets.EC2_HOST }}:/var/www/html/
+
+      - name: Restart Nginx on EC2
+        run: ssh ubuntu@${{ secrets.EC2_HOST }} "sudo systemctl restart nginx"
