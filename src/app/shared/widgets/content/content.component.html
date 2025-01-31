@@ -1,13 +1,13 @@
 <div class="flex justify-center m-auto flex-col items-center gap-2 ">
     <p class="text-white text-2xl">URL Shortener</p>
     <!-- URL BAR -->
-<div class="bg-accent_blue rounded-2xl py-2 px-2 md:min-w-[40%] min-w-[80%] flex justify-between">
+<div class="bg-accent_blue rounded-2xl py-2 px-2 md:min-w-[40%] min-w-[80%] max-w-[90%] flex justify-between border-2"  [ngClass]="{ 'border-red-700': urlError, 'border-2': urlError }" >
         <input class="bg-transparent w-full outline-none px-3 py-1" type="text" placeholder="www.srg.buzz/home?reload=true" [(ngModel)]="inputValue">
         <!-- w-3/4 -->
          @if (isGenerated) {
             <div class="flex gap-1">
-                <button class="bg-accent_light_blue text-bg_color rounded-xl px-3 py-1 flex items-center gap-1 active:opacity-85 transition-all">
-                    Copy
+                <button class="bg-accent_light_blue text-bg_color rounded-xl px-3 py-1 flex items-center gap-1 active:opacity-85 transition-all" (click)="copyLink()">
+                    {{copyState}}
                     <svg width="15" height="15" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_3_46)">
                         <path d="M7.89286 0H12.602C13.0839 0 13.5469 0.199219 13.8884 0.550781L16.465 3.20312C16.8065 3.55469 17 4.03125 17 4.52734V13.125C17 14.1602 16.1842 15 15.1786 15H7.89286C6.88728 15 6.07143 14.1602 6.07143 13.125V1.875C6.07143 0.839844 6.88728 0 7.89286 0ZM1.82143 5H4.85714V7.5H2.42857V17.5H9.71429V16.25H12.1429V18.125C12.1429 19.1602 11.327 20 10.3214 20H1.82143C0.815848 20 0 19.1602 0 18.125V6.875C0 5.83984 0.815848 5 1.82143 5Z" fill="#00161E"/>
