@@ -1,3 +1,3 @@
 export const environment = {
-    apiURL : "https://shorturl.srgweb.site/api"
+    apiURL : process.env["API_URL"] || ""
 };
